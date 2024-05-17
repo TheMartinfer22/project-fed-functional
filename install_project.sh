@@ -2,6 +2,12 @@
 
 read -p "Digite o nome do novo projeto: " novo_nome_projeto
 
+diretorio_atual=$(pwd)
+
+nome_diretorio_atual=$(basename "$diretorio_atual")
+
+diretorio_pai=$(dirname "$diretorio_atual")
+
 arquivos=(
     "angular.json"
     "package-lock.json"
@@ -20,8 +26,10 @@ for arquivo in "${arquivos[@]}"; do
 done
 
 echo "Substituição concluída."
-
-# Executar npm install
+novo_diretorio="$diretorio_pai/$novo_nome_projeto"
+mv "$diretorio_atual" "$novo_diretorio"
+echo "Diretório renomeado para: $novo_diretorio"
+cd "$novo_diretorio"
 echo "Executando npm install..."
 npm install
 
